@@ -18,9 +18,13 @@ const RecipeDetails = ({ recipe }) => {
         <p>
           <strong>Ingredients: </strong>
           <ul>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>  {ingredient}</li>
-            ))}
+          {recipe.ingredients.length > 0 ? (
+            recipe.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+                  ))
+              ) : (
+                <li>No ingredients listed.</li>
+              )}
           </ul>
         </p>
         <p>{formatDistanceToNow(new Date(recipe.createdAt), {addSuffix: true})}</p>

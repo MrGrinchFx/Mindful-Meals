@@ -108,6 +108,7 @@ label, input {
     font-family: "Poppins";
     border-radius: 4px;
     cursor: pointer;
+    margin: 0 10px;
   }
   div .error {
     padding: 10px;
@@ -121,3 +122,4 @@ label, input {
   input .error{
     border: 1px solid var(--error)
   }
+  
