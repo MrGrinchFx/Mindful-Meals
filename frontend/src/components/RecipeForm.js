@@ -1,8 +1,10 @@
 
 import {useState} from 'react'
 import { useRecipesContext } from '../hooks/useRecipeContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const RecipeForm = ()=>{
+    const {user} = useAuthContext()
     const{dispatch} = useRecipesContext() // extracts the dispatch function from the context
     const [title, setTitle] = useState('') // set all the model props to null initially
     const [ingredients, setIngredients] = useState([''])
@@ -12,12 +14,18 @@ const RecipeForm = ()=>{
     const handleSubmit = async(e) =>{
         e.preventDefault() //makes sure the server doesn't refresh the page
 
+        if (!user){
+            setError('You must be logged in')
+            return
+        }
+
         const recipe = {title, ingredients}
         const response = await fetch('/api/recipes', {
             method: 'POST',
             body:JSON.stringify(recipe),
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
         const json = await response.json()
@@ -71,6 +79,8 @@ const RecipeForm = ()=>{
         value={ingredient}
       />
     ))}
+     <label>Add a Photo</label>
+     <input type = "file"  />
             <button>Add Recipe</button>
             <span><button type="button" onClick={addIngredients}>Add Ingredients</button></span>
             <span><button className = "material-symbols-outlined" type="button" onClick={deleteIngredient}>Delete</button></span>

@@ -2,21 +2,30 @@ import { useEffect} from "react"
 import RecipeDetails from "../components/recipeDetails";
 import RecipeForm from '../components/RecipeForm';
 import { useRecipesContext } from "../hooks/useRecipeContext";
+import {useAuthContext} from '../hooks/useAuthContext'
 
 const Home = () => {
     const {recipes, dispatch} = useRecipesContext()
+    const {user} = useAuthContext()
     useEffect(() =>{
         const fetchRecipes = async () =>{
-            const response = await fetch("/api/recipes")
+            const response = await fetch("/api/recipes", {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            }
+            )
             const json = await response.json()
 
             if(response.ok){
                dispatch({type: "SET_RECIPES", payload: json})
             }
-           
         }
-
-        fetchRecipes()
+        
+        if(user){
+             fetchRecipes()
+        }
+      
     }, [dispatch])
 
     return (

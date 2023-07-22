@@ -3,6 +3,7 @@ require("dotenv").config();
 const express  = require("express");
 const mongoose = require("mongoose");
 const recipeRoutes = require("./routes/recipes");
+const userRoutes = require("./routes/userRoutes")
 //initialize the app with express function
 const app = express();
 //listen for requests at port #
@@ -26,4 +27,5 @@ mongoose.connect(process.env.MONG_URI).then(()=>{
 
 //routing to the root page
 app.use('/api/recipes',recipeRoutes);
+app.use('/api/user', userRoutes)
 

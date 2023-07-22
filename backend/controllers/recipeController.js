@@ -1,5 +1,6 @@
 const Recipe = require("../models/recipeModels")
 const mongoose = require('mongoose')
+const Ingredient = require("../models/IngredientsListModel")
 //get all recipes
 
 const getAllRecipes = async(req,res) =>{
@@ -25,17 +26,13 @@ const getRecipe = async(req,res)=>{
 
 const createRecipe = async(req,res)=>{
     const {title, ingredients} = req.body
-
+    
     let emptyFields = []
     if(!title){
         emptyFields.push('title')
     }
-    if(!ingredients){
-        emptyFields.push('ingredients')
-    }
-    // if(!images){
-    //     emptyFields.push('images')
-    // }
+   
+ 
     if(emptyFields.length > 0){
         res.status(400).json({error: 'Please Fill In All Boxes', emptyFields})
     }

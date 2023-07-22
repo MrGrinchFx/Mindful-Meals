@@ -6,7 +6,9 @@ const {
     deleteRecipe,
     updateRecipe
 } = require("../controllers/recipeController")
+const requireAuth = require('../middleware/requireAuth')
 const router = express.Router()
+ router.use(requireAuth)
 
 router.get('/', getAllRecipes)
 
