@@ -4,7 +4,8 @@ const {
     getAllRecipes,
     getRecipe,
     deleteRecipe,
-    updateRecipe
+    updateRecipe,
+    getAllUserRecipes
 } = require("../controllers/recipeController")
 const requireAuth = require('../middleware/requireAuth')
 const router = express.Router()
@@ -13,6 +14,7 @@ const router = express.Router()
 router.get('/', getAllRecipes)
 
 //GET a single recipe
+router.get('/userRecipes', getAllUserRecipes)
 router.get('/:id', getRecipe)
 //POST a new recipe
 router.post("/", createRecipe)

@@ -8,6 +8,12 @@ const getAllRecipes = async(req,res) =>{
     res.status(200).json(recipes)
 }
 
+const getAllUserRecipes = async(req,res) =>{
+    const user_id = req.user._id
+    const recipes = await Recipe.find({user_id}).sort({createdAt: -1}) // '{}' usually looks for a property, leaving it blank will ensure all are retrieved
+    res.status(200).json(recipes)
+}
+
 //get a single recipe
 
 const getRecipe = async(req,res)=>{
@@ -39,7 +45,8 @@ const createRecipe = async(req,res)=>{
     else{
     //add document to db
     try{
-        const recipe = await Recipe.create({title, ingredients});
+        const user_id = req.user._id
+        const recipe = await Recipe.create({title, ingredients, user_id});
         res.status(200).json(recipe)
     }catch(error){
         res.status(400).json({error: error.message})
@@ -84,6 +91,7 @@ module.exports = {
     createRecipe,
     getRecipe,
     getAllRecipes,
+    getAllUserRecipes,
     deleteRecipe,
     updateRecipe
 }

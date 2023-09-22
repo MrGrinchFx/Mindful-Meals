@@ -12,8 +12,12 @@ const recipeSchema = new Schema({
     },
     ingredients:[{
        type:String,
-       required: true
-    }]
+       required: false
+    }],
+    user_id:{
+        type:String,
+        required:true
+    }
     
 },{timestamps: true});
 

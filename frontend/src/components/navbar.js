@@ -16,7 +16,7 @@ const {user} = useAuthContext()
         <nav>
           {user && (
             <div className="logout">
-              <Link to = '/'><span>{user.username}</span></Link>
+              <Link to = '/userRecipes'><span>{user.username}</span></Link>
               <button onClick={handleClick}>Logout</button>
             </div>
           )}
