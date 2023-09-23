@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRecipesContext } from '../hooks/useRecipeContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -10,7 +10,8 @@ const RecipeForm = () => {
   const [ingredients, setIngredients] = useState(['']);
   const [error, setError] = useState('');
   const [ingredientErrors, setIngredientErrors] = useState(new Array(ingredients.length).fill(false)); // Initialize with false for each ingredient
-
+  const [selectedImage, setSelectedImage] = useState('')
+  const fileInputRef = useRef(null)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,7 +19,10 @@ const RecipeForm = () => {
       setError('You must be logged in');
       return;
     }
-
+    
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; // Reset the file input value
+    }
     // Check for empty ingredients and set error status
     const newIngredientErrors = ingredients.map((ingredient) => !ingredient.trim());
     setIngredientErrors(newIngredientErrors);
@@ -38,9 +42,10 @@ const RecipeForm = () => {
       setError('Please fill in the title.');
       return;
     }
-    
+    //handles image
+   
 
-    const recipe = { title, ingredients };
+    const recipe = { title, ingredients, selectedImage};
     const response = await fetch('/api/recipes', {
       method: 'POST',
       body: JSON.stringify(recipe),
@@ -56,12 +61,30 @@ const RecipeForm = () => {
     } else {
       setTitle('');
       setIngredients(['']);
+      setSelectedImage('')
       setError(null);
       setIngredientErrors(new Array(1).fill(false)); // Reset ingredient errors for a single ingredient
       dispatch({ type: 'CREATE_RECIPE', payload: json });
     }
   };
-
+  const handleImage = (event) =>{
+   
+      try {
+        const uploadedImage = event.target.files[0];
+        if (uploadedImage) {
+          // Use FileReader to read the image as a data URL
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            setSelectedImage(e.target.result); // Set selectedImage with the data URL
+            console.log(e.target.result)
+          };
+          reader.readAsDataURL(uploadedImage); // Start reading the file
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+  
+  }
   const addIngredients = () => {
     setIngredients([...ingredients, '']);
     setIngredientErrors([...ingredientErrors, false]); // Initialize error status for the new input
@@ -106,21 +129,28 @@ const RecipeForm = () => {
             />
         ))}
       </div>
-
-      <label>Add a Photo</label>
-      <input type="file" />
-
-      <button>Add Recipe</button>
-      <span>
-        <button type="button" onClick={addIngredients}>
-          Add Ingredients
-        </button>
-      </span>
-      <span>
-        <button className="material-symbols-outlined" type="button" onClick={deleteIngredient}>
-          Delete
-        </button>
-      </span>
+      <div className='photo-submission'>
+        <label>Add a Photo</label>
+        <input type="file" accept='.jpg, .png, jpeg' onChange={handleImage} ref={fileInputRef}/>
+        {selectedImage && (
+        
+          <img src = {selectedImage} alt ="Recipe" ></img>
+       
+        )}
+      </div>
+      <div className='controlling-buttons'>
+        <button>Add Recipe</button>
+        <span>
+          <button type="button" onClick={addIngredients}>
+            Add Ingredients
+          </button>
+        </span>
+        <span>
+          <button className="material-symbols-outlined" type="button" onClick={deleteIngredient}>
+            Delete
+          </button>
+        </span>
+      </div>
 
       {error && <div className="error">{error}</div>}
     </form>

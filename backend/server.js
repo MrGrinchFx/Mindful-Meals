@@ -8,7 +8,7 @@ const userRoutes = require("./routes/userRoutes")
 const app = express();
 //listen for requests at port #
 //middleware
-app.use(express.json()) //any requests that have some json body, will be parsed and attaches it to the request object
+app.use(express.json({ limit: '100MB' })) //any requests that have some json body, will be parsed and attaches it to the request object
 
 app.use((req,res,next) => {
     console.log(req.path,req.method);

@@ -31,7 +31,7 @@ const getRecipe = async(req,res)=>{
 //create new recipe
 
 const createRecipe = async(req,res)=>{
-    const {title, ingredients} = req.body
+    const {title, ingredients, selectedImage} = req.body
     
     let emptyFields = []
     if(!title){
@@ -46,8 +46,9 @@ const createRecipe = async(req,res)=>{
     //add document to db
     try{
         const user_id = req.user._id
-        const recipe = await Recipe.create({title, ingredients, user_id});
+        const recipe = await Recipe.create({title, ingredients, user_id, selectedImage});
         res.status(200).json(recipe)
+        console.log(recipe)
     }catch(error){
         res.status(400).json({error: error.message})
     }

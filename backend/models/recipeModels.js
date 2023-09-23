@@ -17,6 +17,10 @@ const recipeSchema = new Schema({
     user_id:{
         type:String,
         required:true
+    },
+    selectedImage:{
+        type:String,
+        required: false
     }
     
 },{timestamps: true});

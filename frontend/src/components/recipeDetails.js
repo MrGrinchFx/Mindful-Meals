@@ -24,24 +24,27 @@ const RecipeDetails = ({ recipe }) => {
     }
     
     return (
-      <div className="recipe-details">
-        <h4>{recipe.title}</h4>
-        <p>
-          <strong>Ingredients: </strong>
-          <ul>
-          {recipe.ingredients.length > 0 ? (
-            recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-                  ))
+        <div className="recipe-details">
+        <div className="content">
+          <h4>{recipe.title}</h4>
+          <p>
+            <strong>Ingredients: </strong>
+            <ul>
+              {recipe.ingredients.length > 0 ? (
+                recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))
               ) : (
                 <li>No ingredients listed.</li>
               )}
-          </ul>
-        </p>
-        <p>{formatDistanceToNow(new Date(recipe.createdAt), {addSuffix: true})}</p>
-        <span className = "material-symbols-outlined"onClick={handleClick}>Delete</span>
-        
+            </ul>
+          </p>
+          <p>{formatDistanceToNow(new Date(recipe.createdAt), { addSuffix: true })}</p>
+          <span className="material-symbols-outlined" onClick={handleClick}>Delete</span>
+        </div>
+        <img src={recipe.selectedImage} alt="Image of Recipe" />
       </div>
+      
     );
   };
   
