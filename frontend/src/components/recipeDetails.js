@@ -42,9 +42,9 @@ const RecipeDetails = ({ recipe }) => {
           <p>{formatDistanceToNow(new Date(recipe.createdAt), { addSuffix: true })}</p>
           <span className="material-symbols-outlined" onClick={handleClick}>Delete</span>
         </div>
-        <img src={recipe.selectedImage} alt="Image of Recipe" />
+        {recipe.selectedImage && (<img src={recipe.selectedImage}  />)}
       </div>
-      
+
     );
   };
   

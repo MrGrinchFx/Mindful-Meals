@@ -176,5 +176,8 @@ form.signup, form.login {
   max-width: 200px;
   max-height: 200px;
   margin-left: 45%;
-  border: 5px solid red
+  border: 2px black solid;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  display:block;
 }
