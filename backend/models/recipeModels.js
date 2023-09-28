@@ -22,7 +22,7 @@ const recipeSchema = new Schema({
         type:String,
         required: false
     },
-    calories:{
+    cals:{
         type: Number,
         required:false
     },
