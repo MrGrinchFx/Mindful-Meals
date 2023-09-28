@@ -22,7 +22,7 @@ const Signup = () =>{
             <input type = "email" 
             onChange={(e)=>setUsername(e.target.value)} 
             value = {username} 
-            placeholder = "Enter Email Address"/>
+            placeholder = "Enter Username"/>
                 
 
             <label>Password:</label>

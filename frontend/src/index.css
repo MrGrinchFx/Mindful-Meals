@@ -40,10 +40,11 @@ header a {
 }
 .recipe-details {
   background: #fff;
+  position:relative;
+  width: 100%;
   border-radius: 4px;
   margin: 20px auto;
   padding: 20px;
-  position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
   display: flex; /* Display the content and image side by side */
   align-items: center;
@@ -64,12 +65,12 @@ ul {
     padding-left: 1.5em; /* Add some left padding to make space for the image */
   }
   
-  ul li {
+  .content ul li {
     position: relative; /* Position the image relative to the list item */
     padding-left: 1.5em; /* Add some left padding for the image */
   }
   
-  ul li::before {
+  .content ul li::before {
     content: ""; /* Create the pseudo-element for the image */
     position: absolute; /* Position the image */
     top: 3px;
@@ -175,9 +176,11 @@ form.signup, form.login {
 .recipe-details img{
   max-width: 200px;
   max-height: 200px;
-  margin-left: 45%;
+  position:absolute;
+  right: 25%;
   border: 2px black solid;
   border-radius: 4px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
   display:block;
 }
+

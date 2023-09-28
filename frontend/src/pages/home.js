@@ -26,7 +26,7 @@ const Home = () => {
              fetchRecipes()
         }
       
-    }, [dispatch])
+    }, [user, dispatch])
 
     return (
         <div className="home">

@@ -1,0 +1,8 @@
+TODO list for the nutrition App:
+
+Create the functionality of looking at a User's own recipes
+Create teh functionality of looking at more info of a specific recipe
+Connect to teh Food Nutrition API service
+Create functionality to edit a recipe instead of deleting
+
+finished

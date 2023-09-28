@@ -3,8 +3,8 @@ import { useRecipesContext } from "../hooks/useRecipeContext";
 import { formatDistanceToNow } from 'date-fns';
 import { useAuthContext } from "../hooks/useAuthContext";
 const RecipeDetails = ({ recipe }) => {
-    const{dispatch} = useRecipesContext()
-   const{user} = useAuthContext()
+  const{dispatch} = useRecipesContext()
+  const{user} = useAuthContext()
    
 
     const handleClick = async() =>{
@@ -24,7 +24,7 @@ const RecipeDetails = ({ recipe }) => {
     }
     
     return (
-        <div className="recipe-details">
+      <div className="recipe-details">
         <div className="content">
           <h4>{recipe.title}</h4>
           <p>
@@ -42,7 +42,15 @@ const RecipeDetails = ({ recipe }) => {
           <p>{formatDistanceToNow(new Date(recipe.createdAt), { addSuffix: true })}</p>
           <span className="material-symbols-outlined" onClick={handleClick}>Delete</span>
         </div>
-        {recipe.selectedImage && (<img src={recipe.selectedImage}  />)}
+        {recipe.selectedImage && (<img src={recipe.selectedImage} alt ='Recipe Visual' />)}
+        <div className="nutrition-stats">
+          <ul>
+            <li>Total Calories:   {recipe.cals}g</li>
+            <li>Total Carbohydrates:   {recipe.carbs}g</li>
+            <li>Total Protein:   {recipe.protein}g</li>
+            <li>Total Fats:    {recipe.fats}g</li>
+          </ul>
+        </div>
       </div>
 
     );

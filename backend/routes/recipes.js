@@ -14,8 +14,9 @@ const router = express.Router()
 router.get('/', getAllRecipes)
 
 //GET a single recipe
-router.get('/userRecipes', getAllUserRecipes)
+router.get('/userRecipes', getAllRecipes)
 router.get('/:id', getRecipe)
+router.get('/userRecipes', getAllUserRecipes)
 //POST a new recipe
 router.post("/", createRecipe)
 //delete a recipe

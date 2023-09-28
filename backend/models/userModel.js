@@ -12,6 +12,10 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
+        },
+        user_id:{
+            type: String,
+            required: true
         }
     }
 )
@@ -22,9 +26,9 @@ userSchema.statics.signUp = async function(username, password){
     if(!username || !password){
         throw Error("There is no username or password")
     }
-    if (!validator.isEmail(username)){
-        throw Error("Username is not a valid Email Address")
-    }
+    // if (!validator.isEmail(username)){
+    //     throw Error("Username is not a valid Email Address")
+    // }
     if(!validator.isStrongPassword(password)){
         throw Error("Password is not strong enough")
     }

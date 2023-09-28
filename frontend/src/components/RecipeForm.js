@@ -21,52 +21,90 @@ const RecipeForm = () => {
     }
     
     if (fileInputRef.current) {
-      fileInputRef.current.value = ''; // Reset the file input value
+      fileInputRef.current.value = ''; // Reset the image input value
     }
     // Check for empty ingredients and set error status
     const newIngredientErrors = ingredients.map((ingredient) => !ingredient.trim());
+    
     setIngredientErrors(newIngredientErrors);
-
-    // Check if any ingredient has an error
+     // Check if any ingredient has an error
     if(newIngredientErrors.includes(true) && !title.trim()){
-        setError('Please fill in all required fields')
-        return;
+      setError('Please fill in all required fields')
+      return;
     }
     if (newIngredientErrors.includes(true)) {
-      setError('Please fill in all ingredients.');
-      return;
-    }
-
-    // Check if the title is empty and set an error
+    setError('Please fill in all ingredients.');
+    return;
+   }
+  // Check if the title is empty and set an error
     if (!title.trim()) {
-      setError('Please fill in the title.');
-      return;
-    }
-    //handles image
-   
+    setError('Please fill in the title.');
+    return;
+  }
 
-    const recipe = { title, ingredients, selectedImage};
-    const response = await fetch('/api/recipes', {
-      method: 'POST',
-      body: JSON.stringify(recipe),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`
+  let cals = 0;
+  let protein = 0;
+  let carbs = 0;
+  let fats = 0;
+  const nutritionQuery = ingredients.join(', ');
+  const headers = {
+    'X-Api-Key': `${process.env.REACT_APP_API_KEY}`
+  };
+  fetch('https://api.calorieninjas.com/v1/nutrition?query=' + nutritionQuery, {
+    method: 'GET',
+    headers: headers
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Request failed with status: ' + response.status);
       }
-    });
-    const json = await response.json();
-
-    if (!response.ok) {
-      setError(json.error);
-    } else {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      data.items.forEach((ingredient) => {
+        cals += ingredient['calories'];
+        protein += ingredient['protein_g'];
+        carbs += ingredient['carbohydrates_total_g'];
+        fats += ingredient['fat_total_g'];
+      });
+    })
+    .then(() => {
+      const recipe = { title, ingredients, selectedImage, cals, protein, carbs, fats };
+      return fetch('/api/recipes', {
+        method: 'POST',
+        body: JSON.stringify(recipe),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(data => {
+          throw new Error(data.error);
+        });
+      }
+      return response.json();
+    })
+    .then(json => {
       setTitle('');
       setIngredients(['']);
-      setSelectedImage('')
+      setSelectedImage('');
       setError(null);
       setIngredientErrors(new Array(1).fill(false)); // Reset ingredient errors for a single ingredient
       dispatch({ type: 'CREATE_RECIPE', payload: json });
-    }
-  };
+    })
+    .catch(error => {
+      setError(error.message);
+    });
+  }
+      
+   
+   
+
+    
   const handleImage = (event) =>{
    
       try {

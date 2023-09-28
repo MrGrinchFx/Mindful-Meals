@@ -6,6 +6,7 @@ const {logout} = useLogout()
 const handleClick = () =>{
   logout()
 }
+
 const {user} = useAuthContext()
   return (
     <header>
@@ -16,7 +17,7 @@ const {user} = useAuthContext()
         <nav>
           {user && (
             <div className="logout">
-              <Link to = '/userRecipes'><span>{user.username}</span></Link>
+              <Link to = '/UserRecipes'><span>{user.username}'s Recipes</span></Link>
               <button onClick={handleClick}>Logout</button>
             </div>
           )}
