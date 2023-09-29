@@ -9,14 +9,11 @@ const {
 } = require("../controllers/recipeController")
 const requireAuth = require('../middleware/requireAuth')
 const router = express.Router()
- router.use(requireAuth)
+router.use(requireAuth)
 
-router.get('/', getAllRecipes)
-
-//GET a single recipe
-router.get('/userRecipes', getAllRecipes)
-router.get('/:id', getRecipe)
-router.get('/userRecipes', getAllUserRecipes)
+router.get('/myRecipes', getAllUserRecipes); // Specific route comes first
+router.get('/:id', getRecipe); // Dynamic route comes second
+router.get('/', getAllRecipes); // General route comes last
 //POST a new recipe
 router.post("/", createRecipe)
 //delete a recipe

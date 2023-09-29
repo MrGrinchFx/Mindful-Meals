@@ -1,16 +1,18 @@
 const Recipe = require("../models/recipeModels")
 const mongoose = require('mongoose')
-const Ingredient = require("../models/IngredientsListModel")
+
 //get all recipes
 
 const getAllRecipes = async(req,res) =>{
     const recipes = await Recipe.find({}).sort({createdAt: -1}) // '{}' usually looks for a property, leaving it blank will ensure all are retrieved
+    console.log('All STORED RECIPES')
     res.status(200).json(recipes)
 }
 
-const getAllUserRecipes = async(req,res) =>{
+const getAllUserRecipes = async(req,res) =>{ //call this function when wanting personal recipes.
     const user_id = req.user._id
-    const recipes = await Recipe.find({user_id}).sort({createdAt: -1}) // '{}' usually looks for a property, leaving it blank will ensure all are retrieved
+    console.log('All my Recipes')
+    const recipes = await Recipe.find({user_id}).sort({createdAt: -1})
     res.status(200).json(recipes)
 }
 

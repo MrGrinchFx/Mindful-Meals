@@ -10,6 +10,7 @@ const Home = () => {
     useEffect(() =>{
         const fetchRecipes = async () =>{
             const response = await fetch("/api/recipes", {
+                method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }

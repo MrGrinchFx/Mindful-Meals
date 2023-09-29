@@ -45,7 +45,7 @@ const RecipeDetails = ({ recipe }) => {
         {recipe.selectedImage && (<img src={recipe.selectedImage} alt ='Recipe Visual' />)}
         <div className="nutrition-stats">
           <ul>
-            <li>Total Calories:   {recipe.cals}g</li>
+            <li>Total Calories:   {recipe.cals} Cals</li>
             <li>Total Carbohydrates:   {recipe.carbs}g</li>
             <li>Total Protein:   {recipe.protein}g</li>
             <li>Total Fats:    {recipe.fats}g</li>

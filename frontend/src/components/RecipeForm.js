@@ -80,7 +80,7 @@ const RecipeForm = () => {
         }
       });
     })
-    .then(response => {
+    .then(async response => {
       if (!response.ok) {
         return response.json().then(data => {
           throw new Error(data.error);

@@ -11,14 +11,15 @@ const UserRecipes = () => {
         
         
         const fetchMyRecipes = async () =>{
-            const response = await fetch('/api/recipes', {
+            const response = await fetch('/api/recipes/myRecipes', {
+                method: 'GET',
                 headers:{
                     'Authorization': `Bearer ${user.token}`
                 }
             })
             const json = await response.json()
             if (response.ok){
-                dispatch({type:'SET_MY_RECIPES', payload: json})
+                dispatch({type:'SET_RECIPES', payload: json})
             }
         }
         
