@@ -48,7 +48,7 @@ const RecipeForm = () => {
   let fats = 0;
   const nutritionQuery = ingredients.join(', ');
   const headers = {
-    'X-Api-Key': `${process.env.REACT_APP_API_KEY}`
+    'X-Api-Key': 'C0fNeI9pZ3jdD0kNSkBOkw==xRjlHBWZxBoFfiM8'
   };
   fetch('https://api.calorieninjas.com/v1/nutrition?query=' + nutritionQuery, {
     method: 'GET',

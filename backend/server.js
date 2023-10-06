@@ -17,9 +17,9 @@ app.use((req,res,next) => {
 
 //connect to the database
 
-mongoose.connect(process.env.MONG_URI).then(()=>{
-    app.listen(process.env.PORT, () =>{
-        console.log("listening at port", process.env.PORT);
+mongoose.connect('mongodb+srv://2003kevinle:Kevinle17631763@mernapp.db5objb.mongodb.net/?retryWrites=true&w=majority').then(()=>{
+    app.listen(4000, () =>{
+        console.log("listening at port", 4000);
     })
 }).catch((err) =>{
     console.log(err);

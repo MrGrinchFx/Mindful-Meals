@@ -3,7 +3,7 @@ const UserModel = require("../models/userModel")
 const jwt = require('jsonwebtoken')
 
 const createToken = (id) =>{
-    return jwt.sign({_id: id}, process.env.SECRET, {expiresIn: "3d"} )
+    return jwt.sign({_id: id}, 'PWOEIRWPOEITPOGIWPEOIGWPEOIGPWEOIa', {expiresIn: "3d"} )
 }
 const loginUser = async(req,res) =>{
    const {username, password} = req.body
