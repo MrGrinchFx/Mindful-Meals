@@ -10,6 +10,7 @@ This is a full-stack website that allows users to create and store recipes that 
 
 
  How To Run:
+ 
  Prerequisites:
  You must have Git installed on your device. ![link](https://git-scm.com/downloads)
  You must also have Node.js installed prior. ![link](https://nodejs.org/en/download)
