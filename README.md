@@ -13,7 +13,9 @@ This is a full-stack website that allows users to create and store recipes that 
  
  Prerequisites:
  You must have Git installed on your device. (https://git-scm.com/downloads)
+ 
  You must also have Node.js installed prior. (https://nodejs.org/en/download)
+ 
  In order to run the project on your own machine:
  1) Navigate to the terminal of your text editor and clone the repository using ``git clone https://github.com/MrGrinchFx/Mindful-Meals.git``.
  2) Create two separate terminals (one for the backend and one for the frontend), and cd into the respective directories( ``cd backend`` or ``cd frontend`` )
